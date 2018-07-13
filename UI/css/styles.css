@@ -254,7 +254,7 @@ footer{
   font-size: 30px;
   padding: 0 50px 0 0;
   justify-content: center;
-  margin-bottom: 5px
+  margin-bottom: 5px;
   font-family: 'montserrat';
 }
 
@@ -306,7 +306,7 @@ footer{
   position: absolute;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
-
+  padding: 40px 30px;
 }
 
 .current-page{
@@ -317,4 +317,54 @@ footer{
 
 .home{
   color: #fff;
+}
+
+ .loginbox h1{
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+ .loginbox p{
+   margin: 0;
+   padding: 0;
+   font-weight: bold;
+ }
+.loginbox input{
+  width:100%;
+  margin-bottom: 20px;
+}
+
+.loginbox input[type="text"], input[type="password"]{
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.loginbox input[type="submit"]{
+  border: 1px solid #fff;
+  outline: none;
+  height: 40px;
+  background: linear-gradient(
+      rgba(53, 66, 74, 0.2),
+      rgba(53, 66, 74, 0.2)
+    ),no-repeat;
+  color: #fff;
+  font-size; 18px;
+}
+
+.loginbox input[type="submit"]:hover{
+  background: #4CAF50;
+  cursor: pointer;
+  border: none;
+}
+
+.loginbox a{
+  text-decoration: none;
+  color: #4CAF50;
 }
