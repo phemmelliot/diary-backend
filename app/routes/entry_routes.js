@@ -46,6 +46,7 @@ module.exports = function router(app, array) {
   });
   // Delete Request to delete an entry
   app.delete('/entries/:id', (req, res) => {
+    // badRequest.description = 'Entry does not exist';
     if (array.length - 1 >= req.params.id) {
       array.splice(req.params.id, 1);
       const reply = { status: '200', message: 'Entry Deleted Successfully' };
