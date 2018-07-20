@@ -15,7 +15,7 @@ require('./app/routes')(app, array);
 // });
 
 // listen for requests
-const server = app.listen(3000, () => {
+const server = app.listen(8080, () => {
   console.log('Server is listening on port 3000');
 });
 
