@@ -1,0 +1,37 @@
+{
+  "name": "phemmelliot-my-diary",
+  "version": "1.0.0",
+  "description": "Diary Andela Bootcamp Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phemmelliot/Andela-Developer-Challenge.git"
+  },
+  "keywords": [
+    "Diary",
+    "ANdela",
+    "Bootcamp",
+    "Project"
+  ],
+  "author": "Femi Elliot Adegoke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phemmelliot/Andela-Developer-Challenge/issues"
+  },
+  "homepage": "https://github.com/phemmelliot/Andela-Developer-Challenge#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "nodemon": "^1.18.3"
+  }
+}
