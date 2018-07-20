@@ -1,7 +1,7 @@
 {
   "name": "phemmelliot-my-diary",
   "version": "1.0.0",
-  "description": "Diary Andela Bootcamp Project",
+  "description": "Andela My Diary Api",
   "main": "server.js",
   "scripts": {
     "test": "./node_modules/jasmine/bin/jasmine.js",
@@ -15,7 +15,7 @@
   },
   "keywords": [
     "Diary",
-    "ANdela",
+    "Andela",
     "Bootcamp",
     "Project"
   ],
@@ -36,5 +36,8 @@
     "eslint-plugin-import": "^2.13.0",
     "jasmine": "^3.1.0",
     "nodemon": "^1.18.3"
+  },
+  "engines": {
+    "node":"8.11.3"
   }
 }
