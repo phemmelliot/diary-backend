@@ -1,8 +1,8 @@
 
 
-# language: node_js
-# node_js:
-#  - "node"
+language: node_js
+node_js:
+ - "node"
 
 #  env:
 #   global:
@@ -20,27 +20,27 @@
 #   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 
-language: node_js
-env:
-  global:
-    - CC_TEST_REPORTER_ID=f9d06acc600fa14bc78db4810c60e2173f21b6407095a56c6c2a9cdc22055b7a
-
-node_js:
-  - "node"
-dist: trusty
-addons:
-  chrome: stable
-before_script:
-  - yarn global add nyc
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
-
-script:
-  - nyc --reporter=lcov yarn run unit
-
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
-notifications:
-  email: false
+# language: node_js
+# env:
+#   global:
+#     - CC_TEST_REPORTER_ID=f9d06acc600fa14bc78db4810c60e2173f21b6407095a56c6c2a9cdc22055b7a
+#
+# node_js:
+#   - "node"
+# dist: trusty
+# addons:
+#   chrome: stable
+# before_script:
+#   - yarn global add nyc
+#   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#   - chmod +x ./cc-test-reporter
+#   - ./cc-test-reporter before-build
+#
+# script:
+#   - nyc --reporter=lcov yarn run unit
+#
+# after_script:
+#   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+#
+# notifications:
+#   email: false
