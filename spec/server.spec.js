@@ -15,7 +15,7 @@ describe('Server', () => {
   describe('GET /v1/entries', () => {
     const data = {};
     beforeAll((done) => {
-      Request.get('http://localhost:3000/v1/entries', (error, response, body) => {
+      Request.get('http://localhost:5000/v1/entries', (error, response, body) => {
         data.status = response.statusCode;
         data.body = JSON.parse(body);
         done();
@@ -33,7 +33,7 @@ describe('Server', () => {
   describe('DELETE /v1/entries/:id', () => {
     const data = {};
     beforeAll((done) => {
-      Request.get('http://localhost:3000/v1/entries/0', (error, response, body) => {
+      Request.get('http://localhost:5000/v1/entries/0', (error, response, body) => {
         data.status = response.statusCode;
         data.body = JSON.parse(body);
         done();
@@ -59,7 +59,7 @@ describe('Server', () => {
   describe('PUT /v1/entries/:id', () => {
     const data = {};
     beforeAll((done) => {
-      Request.put('http://localhost:3000/v1/entries/0', (error, response, body) => {
+      Request.put('http://localhost:5000/v1/entries/0', (error, response, body) => {
         data.status = response.statusCode;
         data.body = JSON.parse(body);
         done();

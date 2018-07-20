@@ -21,6 +21,13 @@ module.exports = function router(app, array) {
     // res.status(300).send(badRequest);
     // res.status(500).send(serverError);
   });
+  // Show welcome message
+  app.get('/v1', (req, res) => {
+    // const message = { entries: array, size: array.length };
+    res.status(200).send('Welcome to mydiary api, for get all entries put /entries, for get one entry put /entries/id, for delete put /entries/id, for update put /entries/id, for post put /entries ');
+    // res.status(300).send(badRequest);
+    // res.status(500).send(serverError);
+  });
   // Post Request for an entry
   app.post('/v1/entries', (req, res) => {
     const entry = { text: req.body.body, title: req.body.title };
