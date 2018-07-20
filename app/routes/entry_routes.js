@@ -2,7 +2,7 @@ module.exports = function router(app, array) {
   const badRequest = { status: 300, message: 'Bad Request' };
   // const serverError = { status: 500, message: 'Internal Server Error' };
   // Get Request for a single entry
-  app.get('/entries/:id', (req, res) => {
+  app.get('/v1/entries/:id', (req, res) => {
     const entry = array[req.params.id];
     // res.status(200).send(entry);
     if (req.params.id > array.length - 1) {
@@ -15,14 +15,14 @@ module.exports = function router(app, array) {
     // res.status(500).send(serverError);
   });
   // Get request for all entries in the array
-  app.get('/entries', (req, res) => {
+  app.get('/v1/entries', (req, res) => {
     const db = { entries: array, size: array.length };
     res.status(200).send(db);
     // res.status(300).send(badRequest);
     // res.status(500).send(serverError);
   });
   // Post Request for an entry
-  app.post('/entries', (req, res) => {
+  app.post('/v1/entries', (req, res) => {
     const entry = { text: req.body.body, title: req.body.title };
     const reply = { status: '200', message: 'Entry Uploaded Successfully' };
     array.push(entry);
@@ -36,7 +36,7 @@ module.exports = function router(app, array) {
     }
   });
   // Put Request to modify the content of an entryRoutes
-  app.put('/entries/:id', (req, res) => {
+  app.put('/v1/entries/:id', (req, res) => {
     const entry = { text: req.body.body, title: req.body.title };
     array.splice(req.params.id, 1, entry);
     const reply = { status: '200', message: 'Entry Modified Successfully' };
@@ -45,7 +45,7 @@ module.exports = function router(app, array) {
     // res.status(500).send(serverError);
   });
   // Delete Request to delete an entry
-  app.delete('/entries/:id', (req, res) => {
+  app.delete('/v1/entries/:id', (req, res) => {
     // badRequest.description = 'Entry does not exist';
     if (array.length - 1 >= req.params.id) {
       array.splice(req.params.id, 1);
