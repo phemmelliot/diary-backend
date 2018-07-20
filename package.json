@@ -4,9 +4,10 @@
   "description": "Diary Andela Bootcamp Project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/jasmine/bin/jasmine.js",
     "dev": "nodemon server.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test-init": "./node_modules/jasmine/bin/jasmine.js init"
   },
   "repository": {
     "type": "git",
@@ -26,12 +27,14 @@
   "homepage": "https://github.com/phemmelliot/Andela-Developer-Challenge#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "request": "^2.87.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
+    "jasmine": "^3.1.0",
     "nodemon": "^1.18.3"
   }
 }
