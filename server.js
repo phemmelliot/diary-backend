@@ -15,8 +15,8 @@ require('./app/routes')(app, array);
 // });
 
 // listen for requests
-const server = app.listen(8080, () => {
-  console.log('Server is listening on port 3000');
+const server = app.listen(process.env.PORT || 5000, () => {
+  console.log('Server is listening on port 8000');
 });
 
 module.exports = [server, array];
