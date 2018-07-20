@@ -1,7 +1,8 @@
 const Request = require('request');
-const fs = require('../server');
+const fsArray = require('../server');
 
-
+const fs = fsArray[0];
+const array = fsArray[1];
 describe('Server', () => {
   let server;
   beforeAll(() => {
@@ -10,12 +11,13 @@ describe('Server', () => {
   afterAll(() => {
     server.close();
   });
-  describe('GET /', () => {
+  // Test for getting all entries
+  describe('GET /entries', () => {
     const data = {};
     beforeAll((done) => {
-      Request.get('http://localhost:3000/', (error, response, body) => {
+      Request.get('http://localhost:3000/entries', (error, response, body) => {
         data.status = response.statusCode;
-        data.body = body;
+        data.body = JSON.parse(body);
         done();
       });
     });
@@ -23,23 +25,59 @@ describe('Server', () => {
       expect(data.status).toBe(200);
     });
     it('Body', () => {
-      expect(data.body).toBe('The Polyglot Developer');
+      // const db = { entries: array, size: array.length };
+      expect(data.body.entries.length).toBe(array.length);
     });
   });
-  describe('GET /test', () => {
+  // Test for delete request
+  describe('DELETE /entries/:id', () => {
     const data = {};
     beforeAll((done) => {
-      Request.get('http://localhost:3000/test', (error, response, body) => {
+      Request.get('http://localhost:3000/entries/0', (error, response, body) => {
         data.status = response.statusCode;
         data.body = JSON.parse(body);
         done();
       });
     });
     it('Status 200', () => {
-      expect(data.status).toBe(500);
+      expect(data.status).toBe(300);
     });
     it('Body', () => {
-      expect(data.body.message).toBe('This is an error response');
+      expect(data.body.message).toBe('Bad Request');
     });
   });
+  // Test for put request
+  describe('PUT /entries/:id', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.put('http://localhost:3000/entries/0', (error, response, body) => {
+        data.status = response.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Status 200', () => {
+      expect(data.status).toBe(200);
+    });
+    it('Body', () => {
+      expect(data.body.message).toBe('Entry Modified Successfully');
+    });
+  });
+  //
+  // describe('GET /entries/:id', () => {
+  //   const data = {};
+  //   beforeAll((done) => {
+  //     Request.put('http://localhost:3000/entries', (error, response, body) => {
+  //       data.status = response.statusCode;
+  //       data.body = JSON.parse(body);
+  //       done();
+  //     });
+  //   });
+  //   it('Status 200', () => {
+  //     expect(data.status).toBe(200);
+  //   });
+  // it('Body', () => {
+  //   expect(data.body.message).toBe('Entry Uploaded Successfully');
+  // });
+  // });
 });

@@ -1,19 +1,25 @@
 module.exports = function router(app, array) {
   const badRequest = { status: 300, message: 'Bad Request' };
-  const serverError = { status: 500, message: 'Internal Server Error' };
+  // const serverError = { status: 500, message: 'Internal Server Error' };
   // Get Request for a single entry
   app.get('/entries/:id', (req, res) => {
     const entry = array[req.params.id];
-    res.status(200).send(entry);
-    res.status(300).send(badRequest);
-    res.status(500).send(serverError);
+    // res.status(200).send(entry);
+    if (req.params.id > array.length - 1) {
+      badRequest.description = 'Entry does not exist';
+      res.status(300).send(badRequest);
+    } else {
+      res.status(200).send(entry);
+    }
+    // res.status(300).send(badRequest);
+    // res.status(500).send(serverError);
   });
   // Get request for all entries in the array
   app.get('/entries', (req, res) => {
     const db = { entries: array, size: array.length };
     res.status(200).send(db);
-    res.status(300).send(badRequest);
-    res.status(500).send(serverError);
+    // res.status(300).send(badRequest);
+    // res.status(500).send(serverError);
   });
   // Post Request for an entry
   app.post('/entries', (req, res) => {
@@ -40,13 +46,17 @@ module.exports = function router(app, array) {
   });
   // Delete Request to delete an entry
   app.delete('/entries/:id', (req, res) => {
-    array.splice(req.params.id, 1);
-    const reply = { status: '200', message: 'Entry Deleted Successfully' };
-    if (req.params.id > array.length - 1) {
-      badRequest.description = 'Entry does not exist';
-      res.status(300).send(badRequest);
+    if (array.length - 1 >= req.params.id) {
+      array.splice(req.params.id, 1);
+      const reply = { status: '200', message: 'Entry Deleted Successfully' };
+      if (req.params.id > array.length - 1 || req.params.id < 0) {
+        badRequest.description = 'Entry does not exist';
+        res.status(300).send(badRequest);
+      } else {
+        res.status(200).send(reply);
+      }
     } else {
-      res.status(200).send(reply);
+      res.status(300).send(badRequest);
     }
 
     // if (res.statusCode === 200) {
