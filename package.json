@@ -4,7 +4,7 @@
   "description": "Andela My Diary Api",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha \"./test/*.spec.js\" --timeout 15000 --exit ",
+    "test": " ./node_modules/.bin/mocha --compilers js:babel-core/register \"./test/*.spec.js\" --timeout 15000 --exit ",
     "dev": "nodemon starter.js",
     "lint": "eslint",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
@@ -27,7 +27,10 @@
   },
   "homepage": "https://github.com/phemmelliot/Andela-Developer-Challenge#readme",
   "dependencies": {
+    "babel-core": "^6.26.3",
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
     "express": "^4.16.3",
     "mocha": "^5.2.0",
     "morgan": "^1.9.0",

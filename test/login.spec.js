@@ -1,6 +1,8 @@
 import {server, array} from '../server';
-const chai = require('chai')
-const chaiHttp = require('chai-http');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+//const chai = require('chai')
+//const chaiHttp = require('chai-http');
 //const [server, array] = require('../server');
 
 const baseUrl = '/v1/entries'
