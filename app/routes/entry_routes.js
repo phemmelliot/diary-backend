@@ -1,4 +1,4 @@
-module.exports = function router(app, array) {
+export default function route(app, array) {
   const badRequest = { status: 300, message: 'Bad Request' };
   // const serverError = { status: 500, message: 'Internal Server Error' };
   // Get Request for a single entry
@@ -75,4 +75,4 @@ module.exports = function router(app, array) {
     //   res.status(500).send(serverError);
     // }
   });
-};
+}
