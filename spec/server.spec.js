@@ -47,7 +47,7 @@ describe('Server', () => {
       }
     });
     it('Body', () => {
-      console.log(data.body);
+      // console.log(data.body);
       if (data.body.message === undefined) {
         expect(data.body.message).toBe(undefined);
       } else {
