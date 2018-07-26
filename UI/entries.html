@@ -6,7 +6,6 @@
       All Entries
     </title>
     <link rel="stylesheet" href="./css/styles.css">
-
   </head>
   <body>
     <header id="myHeader">
@@ -29,7 +28,7 @@
         </nav>
       </div>
     </header>
-    <div class="wrapper">
+    <div class="wrapper" id="myWrapper">
       <div class="inner-box">
         <h1>This is the title of a page</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -66,35 +65,48 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
     </div>
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">
-    <div class="fab">
+    <div class="fab" id="addFab">
       <span class="fab-action-button">
             <i class="fab-action-button__icon"></i>
       </span>
     </div>
-  </a>
 
-  <div id="light" class="white_content">
-    <input type="text" name="" value="" placeholder="Enter the title here">
-    <textarea name="name">Enter main content</textarea>
-    <p></p>
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'"><button class="close">Close</button></a>
-    <button type="button" name="button" class="add">Add to Diary</button>
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="title" id="editTitle">This is the title of a page</p>
+        <p class="text" id="editText">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="edit" id="editBtn">EDIT</button>
+        <button type="button" class="save" id="saveBtn">DELETE</button>
+      </div>
+    </div>
+
   </div>
-  <div id="fade" class="black_overlay"></div>
+  <div id="addModal" class="modal">
 
-    <script>
-        window.onscroll = function() {myFunction()};
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" id="addClose">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p class="title" id="addTitle">This is the title of a page</p>
+        <p class="text" id="addText">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="edit" id="addSaveBtn">SAVE</button>
+        <button type="button" class="save" id="closeBtn">CLOSE</button>
+      </div>
+    </div>
 
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-        function myFunction() {
-          if (window.pageYOffset > sticky) {
-            header.classList.add("sticky");
-          } else {
-            header.classList.remove("sticky");
-          }
-        }
-    </script>
+  </div>
+    <script type="text/javascript" src="./js/index.js"></script>
   </body>
 </html>
