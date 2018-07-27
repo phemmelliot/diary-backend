@@ -255,6 +255,8 @@ footer{
       rgba(53, 66, 74, 0.45)
     ),  url('../img/bg.jpeg') no-repeat;
   background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .loginbox{
@@ -379,6 +381,8 @@ footer{
   text-align: center;
   font-family: 'montserrat';
 }
+
+
 
 
 
@@ -589,4 +593,95 @@ footer{
   border: none;
   padding: 7px 16px;
   font-family: 'montserrat';
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: 80%;
+    grid-template-columns:repeat(1, 1fr);
+    grid-template-rows: 3;
+    grid-gap:1em;
+  }
+
+  header #branding,
+  header nav,
+  header nav li{
+    width:100%;
+    float:none;
+    text-align:center;
+  }
+
+  .fab{
+    left:90%;
+  }
+  .modal-content{
+    width: 80%;
+  }
+
+  .modal{
+    padding-top: 20%;
+  }
+
+  .login-body{
+    background: linear-gradient(
+        rgba(53, 66, 74, 0.45),
+        rgba(53, 66, 74, 0.45)
+      ),  url('../img/bg.jpeg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+
+  #showcase h1{
+    margin-top: 100px;
+    font-size: 40px;
+    padding: 0 30px 0 30px;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-family: 'montserrat';
+  }
+  .showcase-container{
+    width: 90%;
+  }
+
+  #showcase p{
+    font-size: 25px;
+    padding: 0 30px 0 30px;
+  }
+
+  #reminder img{
+    display: none;
+    padding: 0;
+    width: 0;
+  }
+  #reminder .reminder-box{
+    padding-top: 40px;
+    width: 80%;
+    text-align: center;
+    align-content: center;
+    overflow: auto;
+    }
+
+    .reminder-container{
+      width: 80%;
+    }
+
+    .anywhere-container{
+      float: none;
+      width:70%;
+      margin: auto;
+      text-align: center;
+      overflow: hidden;
+      justify-content: center;
+    }
+
+    #anywhere p{
+      padding: 0 0 0 0;
+    }
+
+    #anywhere h1{
+      padding-right: 0;
+    }
+
+ }
 }
