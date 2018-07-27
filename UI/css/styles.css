@@ -255,6 +255,8 @@ footer{
       rgba(53, 66, 74, 0.45)
     ),  url('../img/bg.jpeg') no-repeat;
   background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .loginbox{
@@ -358,6 +360,7 @@ footer{
     ),no-repeat;
     color: white;
     padding: 1em;
+    cursor: pointer;
 }
 
 .wrapper h1{
@@ -378,6 +381,8 @@ footer{
   text-align: center;
   font-family: 'montserrat';
 }
+
+
 
 
 
@@ -450,23 +455,6 @@ footer{
     margin-left: -28px;
   }
 
-  .fab:hover {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* .fab:hover {
-    transform: scaleY(1) scaleX(1) translateY(-16px) translateX(0px);
-  } */
-
-  .fab-action-button:hover {
-    visibility: visible;
-    opacity: 1;
-    transform: scale(1);
-    transform-origin: right center 0;
-    transition-delay: 0.3s;
-  }
-
   .fab-action-button {
     position: absolute;
     bottom: 0;
@@ -487,73 +475,212 @@ footer{
     background: url('../img/plus.png') center no-repeat;
   }
 
-  .black_overlay {
-  display: none;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  z-index: 1001;
-  -moz-opacity: 0.8;
-  opacity: .80;
-  filter: alpha(opacity=80);
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 13%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border: none;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
-.white_content {
-  display: none;
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  padding: 16px;
-  border: 1px solid #4CAF50;
-  background-color: white;
-  z-index: 1002;
-  overflow: auto;
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
 }
-.white_content input[type="text"]{
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-50%; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-50%; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: #fefefe;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #fefefe;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-body .title{
+  font-size: 18px;
+  font-weight:bold;
+  margin: 0;
   margin-top: 10px;
-  height: 10%;
-  padding: 10px;
+  color: #35424a;
+  padding: 0;
+  font-family: 'montserrat';
 }
 
- .white_content textarea{
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  height: 60%;
-  padding: 10px;
-}
-
-.close{
-  float: right;
-  background: #4CAF50;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  height: 20px;
-  color: #fff;
+.modal-body .text{
   font-size: 16px;
-  padding: 5px;
-  margin-left: 50px;
+  margin: 0;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  font-weight:normal;
+  font-family: 'montserrat';
+  color: #35424a;
 }
 
-.add{
+.modal-body hr{
+  margin-top: 1px;
+  margin-bottom: 10px;
+  padding-top: 0;
+}
+
+
+.modal-footer {
+    background-color: #fefefe;
+    color: white;
+
+}
+
+.edit{
+  width: 50%;
+  background-color: #4CAF50;
   float: left;
-  background: #4CAF50;
-  cursor: pointer;
+  color: white;
+  font-size: 20px;
   border: none;
-  outline: none;
-  height: 20px;
-  color: #fff;
-  font-size: 16px;
-  padding: 5px;
-  margin-right: 50px;
+  padding: 7px 16px;
+  font-family: 'montserrat';
+}
+.save{
+  width: 50%;
+  background-color: #e2e2e1;
+  float: right;
+  color: #000;
+  font-size: 20px;
+  border: none;
+  padding: 7px 16px;
+  font-family: 'montserrat';
 }
 
-//
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: 80%;
+    grid-template-columns:repeat(1, 1fr);
+    grid-template-rows: 3;
+    grid-gap:1em;
+  }
+
+  header #branding,
+  header nav,
+  header nav li{
+    width:100%;
+    float:none;
+    text-align:center;
+  }
+
+  .fab{
+    left:90%;
+  }
+  .modal-content{
+    width: 80%;
+  }
+
+  .modal{
+    padding-top: 20%;
+  }
+
+  .login-body{
+    background: linear-gradient(
+        rgba(53, 66, 74, 0.45),
+        rgba(53, 66, 74, 0.45)
+      ),  url('../img/bg.jpeg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+
+  #showcase h1{
+    margin-top: 100px;
+    font-size: 40px;
+    padding: 0 30px 0 30px;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-family: 'montserrat';
+  }
+  .showcase-container{
+    width: 90%;
+  }
+
+  #showcase p{
+    font-size: 25px;
+    padding: 0 30px 0 30px;
+  }
+
+  #reminder img{
+    display: none;
+    padding: 0;
+    width: 0;
+  }
+  #reminder .reminder-box{
+    padding-top: 40px;
+    width: 80%;
+    text-align: center;
+    align-content: center;
+    overflow: auto;
+    }
+
+    .reminder-container{
+      width: 80%;
+    }
+
+    .anywhere-container{
+      float: none;
+      width:70%;
+      margin: auto;
+      text-align: center;
+      overflow: hidden;
+      justify-content: center;
+    }
+
+    #anywhere p{
+      padding: 0 0 0 0;
+    }
+
+    #anywhere h1{
+      padding-right: 0;
+    }
+
+}
