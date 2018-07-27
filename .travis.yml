@@ -4,6 +4,8 @@ language: node_js
 node_js:
  - "node"
 
+ after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+
 #  env:
 #   global:
 #     - CC_TEST_REPORTER_ID=f9d06acc600fa14bc78db4810c60e2173f21b6407095a56c6c2a9cdc22055b7a
