@@ -1,6 +1,7 @@
+# Andela-Developer-Challenge - My Diary
+
 ![Homepage](screenshots/home.png)
 
-# Andela-Developer-Challenge - My Diary
 > My diary is a webapp where users can input there thoughts, anytime, anywhere
 
 [![Build Status](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge.svg?branch=api)](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge) [![Maintainability](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/maintainability)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/test_coverage)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/test_coverage)
@@ -18,8 +19,9 @@
 - [Features](#features)
 - [Contributing](#contributing)
 - [Team](#team)
-- [License](#license)
 - [Testing](#testing)
+- [License](#license)
+
 
 ## Usage
 
@@ -83,8 +85,6 @@
 ## Team
    For now i am the only working on this, but what i am learning to build here i am
    learning it with some awesome folks facilitated by another awesome folk.
-## License
-  None for now.
 ## Testing
    If you want naive test, you can just use `postman` to test, but real test, clone the repository, open terminal in root and do the following on terminal
    ```shell
@@ -95,3 +95,5 @@
   ```shell
   $ npm test
   ```
+## License
+  None for now.
