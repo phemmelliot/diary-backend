@@ -257,11 +257,12 @@ footer{
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
+  height: 100%;
+  width: 100%;
 }
 
 .loginbox{
   width: 320px;
-  height: 420px;
   background: linear-gradient(
       rgba(53, 66, 74, 0.6),
       rgba(53, 66, 74, 0.6)
@@ -273,6 +274,12 @@ footer{
   transform: translate(-50%, -50%);
   box-sizing: border-box;
   padding: 40px 30px;
+}
+.login{
+  height: 450px;
+}
+.signup{
+  height: 490px;
 }
 
 .current-page{
