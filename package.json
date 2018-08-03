@@ -8,7 +8,7 @@
     "dev": "nodemon starter.js",
     "lint": "eslint",
     "heroku-postbuild": "npm install --production",
-    "start": " nodemon --watch .  --exec babel-node  -- server.js --presetenv"
+    "start": " nodemon --watch .  --exec babel-node  -- server.js && ./app/db/db.js --presetenv"
   },
   "repository": {
     "type": "git",
