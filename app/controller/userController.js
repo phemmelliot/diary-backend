@@ -57,8 +57,7 @@ const loginQuery = (req, res, login) => {
 const logIn = (req, res) => {
   req.body.email.trim();
   req.body.password.trim();
-  req.body.username.trim();
-  if (req.body.email == null || req.body.password == null || req.body.username == null || req.body.email === '' || req.body.password === '' || req.body.username === '') {
+  if (req.body.email == null || req.body.password == null || req.body.email === '' || req.body.password === '') {
     badRequest.description = 'Email or password field cannot be empty';
     res.status(400).send(badRequest);
   } else if (validateEmail(req.body.email) && validatePassword(req.body.password)) {
