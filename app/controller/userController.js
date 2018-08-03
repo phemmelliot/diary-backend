@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../db/pool';
-import { validateEmail, validatePassword } from './validate';
+import { validateEmail, validatePassword, isEmpty } from './validate';
 
 dotenv.config();
 
@@ -70,10 +70,7 @@ const logIn = (req, res) => {
 
 
 const createUser = (req, res) => {
-  req.body.email.trim();
-  req.body.password.trim();
-  req.body.username.trim();
-  if (req.body.email == null || req.body.password == null || req.body.username == null || req.body.email === '' || req.body.password === '' || req.body.username === '') {
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || isEmpty(req.body.password)) {
     badRequest.description = 'Email, password or username field cannot be empty';
     res.status(400).send(badRequest);
   } else {

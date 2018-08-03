@@ -11,4 +11,12 @@ const validatePassword = (password) => {
   }
 }
 
-export { validateEmail, validatePassword };
+const isEmpty = (input) => {
+  if (input.replace(/\s/g, '').length) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+export { validateEmail, validatePassword, isEmpty };

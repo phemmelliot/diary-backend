@@ -2,6 +2,32 @@ import pool from '../db/pool';
 
 const badRequest = { status: 400, message: 'Bad Request' };
 
+const isEditable = (req) => {
+  pool.query('SELECT EXTRACT (day FROM time_created) as day, EXTRACT (month FROM time_created) as month, EXTRACT (isoyear FROM time_created) as year FROM entries WHERE id = $1', [req.params.id], (error, response) => {
+    if (response.rows[0] !== undefined) {
+      const date = new Date();
+      const currentDay = date.getDate();
+      const currentMonth = date.getMonth() + 1;
+      const currentYear = date.getFullYear();
+
+      const createdDay = response.rows[0].day;
+      const createdMonth = response.rows[0].month;
+      const createdYear = response.rows[0].year;
+
+      const dayDiff = createdDay - currentDay;
+      const monthDiff = currentMonth - createdMonth;
+      const yearDiff = createdYear - currentYear;
+
+
+      if (dayDiff === 0 && monthDiff === 0 && yearDiff === 0) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  });
+};
+
 const getEntry = (req, res) => {
   pool.query('SELECT * FROM entries WHERE (id, user_id) = ($1, $2)', [req.params.id, req.userData.userId], (err, dbRes) => {
     if (err) {
@@ -75,34 +101,39 @@ const createEntry = (req, res) => {
 };
 
 const updateEntry = (req, res) => {
-  pool.query('UPDATE entries SET title = ($1), description = ($2) WHERE (id, user_id) = ($3, $4)',
-    [req.body.title, req.body.text, req.params.id, req.userData.userId], (error) => {
-      if (error) {
-        const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update entry' };
-        res.status(500).send(replyServer);
-      } else {
-        pool.query('SELECT * FROM entries WHERE user_id = ($1) ORDER BY id DESC', [req.userData.userId], (err, dbRes) => {
-          if (err) {
-            const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve entry' };
-            res.status(500).send(reply);
-          } else {
-            const db = { entries: dbRes.rows, size: dbRes.rows.length };
-            const reply = { status: '404', message: 'Entry Not Found' };
-            if (dbRes.rows === undefined) {
-              res.status(404).send(reply);
+  if (!isEditable(req)) {
+    pool.query('UPDATE entries SET title = ($1), description = ($2) WHERE (id, user_id) = ($3, $4)',
+      [req.body.title, req.body.text, req.params.id, req.userData.userId], (error) => {
+        if (error) {
+          const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update entry' };
+          res.status(500).send(replyServer);
+        } else {
+          pool.query('SELECT * FROM entries WHERE user_id = ($1) ORDER BY id DESC', [req.userData.userId], (err, dbRes) => {
+            if (err) {
+              const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve entry' };
+              res.status(500).send(reply);
             } else {
-              const goodReply = { status: '200', message: 'Entry Modified successfully', entry: db };
-              res.status(200).send(goodReply);
+              const db = { entries: dbRes.rows, size: dbRes.rows.length };
+              const reply = { status: '404', message: 'Entry Not Found' };
+              if (dbRes.rows === undefined) {
+                res.status(404).send(reply);
+              } else {
+                const goodReply = { status: '200', message: 'Entry Modified successfully', entry: db };
+                res.status(200).send(goodReply);
+              }
             }
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+  } else {
+    const Reply = { status: '200', message: 'Entry can not be modified' };
+    res.status(200).send(Reply);
+  }
 };
 
 const deleteEntry = (req, res) => {
   let reply = {};
-  pool.query('DELETE FROM entries WHERE (id, user_id) = ($1, $2)', [req.params.id, req.userData.userId], (err) => {
+  pool.query('DELETE FROM entries WHERE (id, user_id) = ($1, $2)', [req.params.id, req.userData.userId], (err, result) => {
     if (err) {
       reply = { status: '500', message: 'Internal Server Error', description: 'Could not delete Entry' };
       res.status(500).send(reply);
@@ -117,7 +148,12 @@ const deleteEntry = (req, res) => {
             res.status(404).send(badReply);
           } else {
             const goodReply = { status: '200', message: 'Entry Deleted successfully', entry: db };
-            res.status(200).send(goodReply);
+            if (result.rowCount === 0) {
+              const badDeleteReply = { status: '404', message: 'Entry does not exist' };
+              res.status(200).send(badDeleteReply);
+            } else {
+              res.status(200).send(goodReply);
+            }
           }
         }
       });
