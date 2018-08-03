@@ -602,7 +602,7 @@ footer{
   font-family: 'montserrat';
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .wrapper {
     width: 80%;
     grid-template-columns:repeat(1, 1fr);
