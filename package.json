@@ -7,7 +7,8 @@
     "test": " ./node_modules/.bin/mocha --compilers js:babel-core/register \"./test/*.spec.js\" --timeout 15000 --exit ",
     "dev": "nodemon starter.js",
     "lint": "eslint",
-    "start": " nodemon --watch .  --exec babel-node  -- server.js --presetenv" 
+    "heroku-postbuild": "npm install --production",
+    "start": " nodemon --watch .  --exec babel-node  -- server.js --presetenv"
   },
   "repository": {
     "type": "git",
