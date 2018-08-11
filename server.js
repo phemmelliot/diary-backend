@@ -1,12 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-// import { Pool } from 'pg';
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import router from './app/routes';
+import addTables from './app/db/db';
 
-// dotenv.config();
-// const dbConfig = { connectionString: process.env.DATABASE_URL };
-// const pool = new Pool(dbConfig);
+addTables();
+dotenv.config();
 
 // create express app
 const app = express();
