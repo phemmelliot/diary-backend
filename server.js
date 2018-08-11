@@ -23,4 +23,4 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 // module.exports = [server, array];
-export default server;
+export default { server };
