@@ -6,7 +6,7 @@ import { validateEmail, validatePassword, isEmpty } from './validate';
 
 dotenv.config();
 
-const badRequest = { status: '400', message: 'Bad Request' };
+const badRequest = { status: 400, message: 'Bad Request' };
 
 
 const loginQuery = (req, res, login) => {
@@ -15,7 +15,7 @@ const loginQuery = (req, res, login) => {
       const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not Log User in' };
       res.status(500).send(replyServer);
     } else {
-      const reply = { status: '401', message: 'User does not exist' };
+      const reply = { status: '401', message: 'Auth failed' };
       if (dbRes.rows[0] === undefined) {
         res.status(401).send(reply);
       } else {
@@ -46,7 +46,6 @@ const loginQuery = (req, res, login) => {
                 res.status(201).send(replyCreate);
               }
             } else {
-              reply.message = 'Unable to encrypt password';
               res.status(401).send(reply);
             }
           });
@@ -56,7 +55,9 @@ const loginQuery = (req, res, login) => {
 };
 
 const logIn = (req, res) => {
-  if (isEmpty(req.body.email) || isEmpty(req.body.password)) {
+  req.body.email.trim();
+  req.body.password.trim();
+  if (req.body.email == null || req.body.password == null || req.body.email === '' || req.body.password === '') {
     badRequest.description = 'Email or password field cannot be empty';
     res.status(400).send(badRequest);
   } else if (validateEmail(req.body.email) && validatePassword(req.body.password)) {
@@ -78,7 +79,7 @@ const createUser = (req, res) => {
         const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };
         res.status(500).send(replyServer);
       } else {
-        const reply = { status: '409', message: 'User Already Exists' };
+        const reply = { status: '200', message: 'User Already exists' };
         if (dbRes.rows[0] === undefined) {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
@@ -101,7 +102,7 @@ const createUser = (req, res) => {
             }
           });
         } else {
-          res.status(409).send(reply);
+          res.status(200).send(reply);
         }
       }
     });

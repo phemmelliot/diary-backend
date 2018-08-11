@@ -12,10 +12,7 @@ const validatePassword = (password) => {
 }
 
 const isEmpty = (input) => {
-  if (input === undefined){
-    return true;
-  }
-  else if (input.replace(/\s/g, '').length) {
+  if (input.replace(/\s/g, '').length) {
     return false;
   } else {
     return true;
