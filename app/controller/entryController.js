@@ -57,11 +57,12 @@ const getEntries = (req, res) => {
     } else {
       const db = { entries: dbRes.rows, size: dbRes.rows.length };
       const reply = {
-        status: '404', message: 'Entry Not Found',
+        status: '404', message: 'There is no entries yet',
       };
-      if (dbRes.rows === undefined) {
+      if (dbRes.rows === undefined || dbRes.rows.length === 0) {
         res.status(404).send(reply);
       } else {
+        // console.log(dbRes.rows);
         const goodReply = { status: '200', message: 'Entries returned successfully', data: db };
         res.status(200).send(goodReply);
       }
@@ -86,7 +87,7 @@ const createEntry = (req, res) => {
               res.status(500).send(reply);
             } else {
               const db = { entries: dbRes.rows, size: dbRes.rows.length };
-              const reply = { status: '404', message: 'Entry Not Found' };
+              const reply = { status: '404', message: 'Entry Not Inserted' };
               if (dbRes.rows === undefined) {
                 res.status(404).send(reply);
               } else {
@@ -118,7 +119,7 @@ const updateEntry = (req, res) => {
               if (dbRes.rows === undefined) {
                 res.status(404).send(reply);
               } else {
-                const goodReply = { status: '200', message: 'Entry Modified successfully', entry: db };
+                const goodReply = { status: '200', message: 'Entry Modified successfully', data: db };
                 res.status(200).send(goodReply);
               }
             }
@@ -147,7 +148,7 @@ const deleteEntry = (req, res) => {
           if (dbRes.rows === undefined) {
             res.status(404).send(badReply);
           } else {
-            const goodReply = { status: '200', message: 'Entry Deleted successfully', entry: db };
+            const goodReply = { status: '200', message: 'Entry Deleted successfully', data: db };
             if (result.rowCount === 0) {
               const badDeleteReply = { status: '404', message: 'Entry does not exist' };
               res.status(200).send(badDeleteReply);
