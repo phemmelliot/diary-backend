@@ -8,7 +8,7 @@
     "dev": "nodemon starter.js",
     "lint": "eslint",
     "heroku-postbuild": "npm install --production",
-    "coverage": "babel-node ./node_modules/.bin/babel-istanbul  cover _mocha -- -R spec \"./test/*.spec.js\" --timeout 150000 --compilers js:babel-core/register",
+    "coverage": "babel-node ./node_modules/.bin/babel-istanbul  cover _mocha -- -R spec \"./test/*.spec.js\" --timeout 15000000 --compilers js:babel-core/register",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": " nodemon --watch .  --exec babel-node  -- server.js --presetenv"
   },
