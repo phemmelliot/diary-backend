@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import server from '../server';
 import pool from '../app/db/pool';
+import addTables from '../app/db/db';
+
+addTables();
 
 dotenv.config();
 
@@ -568,6 +571,49 @@ describe('/POST Log user in', () => {
             done();
           });
       });
+    });
+  });
+});
+
+describe('/GET/ user profile', () => {
+  it('it should not GET profile if there is no auth token', (done) => {
+    chai.request(server)
+      .get('/api/v1/user/profile')
+      .end((err, res) => {
+        expect(res.body.message).equals('Auth failed');
+        expect(res.status).equals(401);
+        done();
+      });
+  });
+
+  it('it should not GET profile if user does not exist', (done) => {
+    chai.request(server)
+      .get('/api/v1/user/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('User Does not exist');
+        expect(res.status).equals(404);
+        done();
+      });
+  });
+
+  it('it should GET an entry by id', (done) => {
+    pool.query('INSERT INTO users(email, password, username, user_id) values($1, $2, $3, $4)', [email, password, username, 1], (err) => {
+      if (err) {
+        // console.log(err);
+      } else {
+        // const id = 1;
+        chai.request(server)
+          .get('/api/v1/user/profile')
+          .set('Authorization', `Bearer ${token}`)
+          .end((error, res) => {
+            // console.log(JSON.stringify(res.body, undefined, 3));
+            expect(res.body.user).to.be.an('Object');
+            expect(res.status).equal(200);
+            expect(res.body.message).equal('User Returned Successfully');
+            done();
+          });
+      }
     });
   });
 });
