@@ -8,12 +8,12 @@ services:
  - postgresql
 addons:
     code_climate:
-        repo_token: secure: "ZV86wmtnYNKkWZIe+6WqLPcJRf+1JZg2M2h/tZG/Guld4WH/e3Toa1t8NnckKCnVQK5FuaduQTarTFHhGQfB1O8LuYy9xKE0+6Nd9qgPcSDkGqX+HeEyreLSYyoh0M5CfAGmtD9kje7+3wVRVTjukFmEmk7JvasDXWVPL5zwvhF+OGvXpyBie+Z7V6RWusJxAxw6Gs2BLRrUJhnkTCxJfI8WbDfcVEwk82jF+jJxbSZT5p0BBfWymzwrwR+N4OJ0MA9B1Jb6cnvDeN7EH0kc1i+088HM5j3QM9W/3RER/tytbWBiZPyb/RSlfhvCgKYPxVjRkoVQoO88IvO86FlgjLebsdehdq/B0yFW3Ho2QIS13P1WP5cMzX3qwCR/z7G2XSH7rphaRLerrKCWqFF5K13RYXmfkSA0nme5t7D+LYdHEn/ZAFvPqlUb0AU4iiRSwAnjT0bUS0GAzxNEaFDWr+Mc43zqaoT6cr+sihVBI/8RHJYezbjsS9/ddHa5/fpgI3NJ9xK0pROjmnYgUA7k8twi2KCdMsiEfYuxXoD5FzCFcQIssIqBAKP67/LoYNdaFQSYgDwQjxZToL+gMbIYkiUxQFs0PDvt0R9p4ocSrI4nF1M2BgFfq+CkU4gIrK9hnzIa3zkAYVduPwpcYNxjxWZErm/s45MGG1pQEEtpzKs="
- - psql -c 'create database travis_ci_test;' -U postgres
- - npm install codeclimate-test-reporter istanbul -g
+        repo_token:
+          secure: "ZV86wmtnYNKkWZIe+6WqLPcJRf+1JZg2M2h/tZG/Guld4WH/e3Toa1t8NnckKCnVQK5FuaduQTarTFHhGQfB1O8LuYy9xKE0+6Nd9qgPcSDkGqX+HeEyreLSYyoh0M5CfAGmtD9kje7+3wVRVTjukFmEmk7JvasDXWVPL5zwvhF+OGvXpyBie+Z7V6RWusJxAxw6Gs2BLRrUJhnkTCxJfI8WbDfcVEwk82jF+jJxbSZT5p0BBfWymzwrwR+N4OJ0MA9B1Jb6cnvDeN7EH0kc1i+088HM5j3QM9W/3RER/tytbWBiZPyb/RSlfhvCgKYPxVjRkoVQoO88IvO86FlgjLebsdehdq/B0yFW3Ho2QIS13P1WP5cMzX3qwCR/z7G2XSH7rphaRLerrKCWqFF5K13RYXmfkSA0nme5t7D+LYdHEn/ZAFvPqlUb0AU4iiRSwAnjT0bUS0GAzxNEaFDWr+Mc43zqaoT6cr+sihVBI/8RHJYezbjsS9/ddHa5/fpgI3NJ9xK0pROjmnYgUA7k8twi2KCdMsiEfYuxXoD5FzCFcQIssIqBAKP67/LoYNdaFQSYgDwQjxZToL+gMbIYkiUxQFs0PDvt0R9p4ocSrI4nF1M2BgFfq+CkU4gIrK9hnzIa3zkAYVduPwpcYNxjxWZErm/s45MGG1pQEEtpzKs="
 script: istanbul cover node_modules/mocha/bin/_mocha -- -R spec
 before_script:
   - npm install codeclimate-test-reporter istanbul -g
+  - psql -c 'create database travis_ci_test;' -U postgres
 after_script:
   - codeclimate-test-reporter < ./coverage/lcov.info
   - npm run coverage
