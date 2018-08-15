@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Andela-Developer-Challenge/app/controller/userController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">Andela-Developer-Challenge/app/controller/</a> userController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.53% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>66/91</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.81% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>37/53</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">76.92% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.59% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>63/88</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import pool from '../db/pool';
+import { validateEmail, validatePassword, isEmpty } from './validate';
+&nbsp;
+dotenv.config();
+&nbsp;
+const badRequest = { status: '400', message: 'Bad Request' };
+&nbsp;
+&nbsp;
+const loginQuery = (req, res, login) =&gt; {
+  pool.query('SELECT * FROM users WHERE email = ($1)', [req.body.email], (error, dbRes) =&gt; {
+    if (<span class="missing-if-branch" title="if path not taken" >I</span>error) {
+      const <span class="cstat-no" title="statement not covered" >replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not Log User in' };</span>
+      res.<span class="cstat-no" title="statement not covered" >status(500).send(replyServer);</span>
+    } else {
+      const reply = { status: '401', message: 'User does not exist' };
+      if (dbRes.rows[0] === undefined) {
+        res.status(401).send(reply);
+      } else {
+        bcrypt.compare(req.body.password, dbRes.rows[0].password,
+          (bcryptError, bcryptRes) =&gt; {
+            if (<span class="missing-if-branch" title="if path not taken" >I</span>bcryptError) {
+              res.<span class="cstat-no" title="statement not covered" >status(401).send(reply);</span>
+            } else <span class="missing-if-branch" title="else path not taken" >E</span>if (bcryptRes) {
+              const token = jwt.sign(
+                {
+                  email: dbRes.rows[0].email,
+                  userId: dbRes.rows[0].user_id,
+                },
+                process.env.JWT_KEY,
+                {
+                  expiresIn: '1h',
+                },
+              );
+              if (login) {
+                const replyGood = { status: '200', message: 'User Logged In Successfully' };
+                replyGood.token = token;
+                replyGood.user_id = dbRes.rows[0].user_id;
+                res.status(200).send(replyGood);
+              } else {
+                const replyCreate = { status: '201', message: 'User Created Successfully' };
+                replyCreate.token = token;
+                replyCreate.user_id = dbRes.rows[0].user_id;
+                res.status(201).send(replyCreate);
+              }
+            } else {
+              reply.<span class="cstat-no" title="statement not covered" >message = 'Unable to encrypt password';</span>
+              res.<span class="cstat-no" title="statement not covered" >status(401).send(reply);</span>
+            }
+          });
+      }
+    }
+  });
+};
+&nbsp;
+const logIn = (req, res) =&gt; {
+  if (isEmpty(req.body.email) || isEmpty(req.body.password)) {
+    badRequest.description = 'Email or password field cannot be empty';
+    res.status(400).send(badRequest);
+  } else if (validateEmail(req.body.email) &amp;&amp; validatePassword(req.body.password)) {
+    loginQuery(req, res, true);
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!validateEmail(req.body.email) || !validatePassword(req.body.password)) {
+    const replyServer = { status: '400', message: 'Invalid email or password' };
+    res.status(400).send(replyServer);
+  }
+};
+&nbsp;
+&nbsp;
+const createUser = (req, res) =&gt; {
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || isEmpty(req.body.password)) {
+    badRequest.description = 'Email, password or username field cannot be empty';
+    res.status(400).send(badRequest);
+  } else {
+    pool.query('SELECT * FROM users WHERE email = ($1)', [req.body.email], (error, dbRes) =&gt; {
+      if (<span class="missing-if-branch" title="if path not taken" >I</span>error) {
+        const <span class="cstat-no" title="statement not covered" >replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };</span>
+        res.<span class="cstat-no" title="statement not covered" >status(500).send(replyServer);</span>
+      } else {
+        const reply = { status: '409', message: 'User Already Exists' };
+        if (dbRes.rows[0] === undefined) {
+          bcrypt.hash(req.body.password, 10, (err, hash) =&gt; {
+            if (<span class="missing-if-branch" title="if path not taken" >I</span>err) {
+              res.<span class="cstat-no" title="statement not covered" >status(500).json({</span>
+                error: err,
+              });
+            } else if (validateEmail(req.body.email) &amp;&amp; validatePassword(req.body.password)) {
+              pool.query('INSERT INTO users(email, password, username) values($1, $2, $3)',
+                [req.body.email, hash, req.body.username], (errorRes) =&gt; {
+                  if (<span class="missing-if-branch" title="if path not taken" >I</span>errorRes) {
+                    const <span class="cstat-no" title="statement not covered" >replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };</span>
+                    res.<span class="cstat-no" title="statement not covered" >status(500).send(replyServer);</span>
+                  } else {
+                    loginQuery(req, res, false);
+                  }
+                });
+            } else <span class="missing-if-branch" title="else path not taken" >E</span>i</span>f (!validateEmail(req.body.email) || <span class="branch-1 cbranch-no" title="branch not covered" >!validatePassword(req.body.password)) {
+              const replyServer = { status: '400', message: 'Invalid email or password' };
+              res.status(400).send(replyServer);
+            }
+          });
+        } else {
+          res.status(409).send(reply);
+        }
+      }
+    });
+  }
+};
+&nbsp;
+const getProfile = (req, res) =&gt; {
+  pool.query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], (err, response) =&gt; {
+    if (<span class="missing-if-branch" title="if path not taken" >I</span>err) {
+      const <span class="cstat-no" title="statement not covered" >replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };</span>
+      res.<span class="cstat-no" title="statement not covered" >status(500).send(replyServer);</span>
+    } else {
+      const reply = { status: '404', message: 'User Does not exist' };
+      if (response.rows[0] === undefined) {
+        res.status(404).send(reply);
+      } else {
+        const goodReply = { status: '200', message: 'User Returned Successfully', user: response.rows[0] };
+        res.status(200).send(goodReply);
+      }
+    }
+  });
+};
+&nbsp;
+const updateProfile = <span class="fstat-no" title="function not covered" >(req, res) =&gt; {</span>
+  pool.<span class="cstat-no" title="statement not covered" >query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',</span>
+    [req.body.email, req.body.username, req.userData.userId], <span class="fstat-no" title="function not covered" >(error) =&gt; {</span>
+      if (<span class="cstat-no" title="statement not covered" >error) {</span>
+        const <span class="cstat-no" title="statement not covered" >replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update profile' };</span>
+        res.<span class="cstat-no" title="statement not covered" >status(500).send(replyServer);</span>
+      } else {
+        pool.<span class="cstat-no" title="statement not covered" >query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], <span class="fstat-no" title="function not covered" >(err, dbRes) =&gt; {</span></span>
+          if (<span class="cstat-no" title="statement not covered" >err) {</span>
+            const <span class="cstat-no" title="statement not covered" >reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve updated profile' };</span>
+            res.<span class="cstat-no" title="statement not covered" >status(500).send(reply);</span>
+          } else {
+            // const db = { entries: dbRes.rows, size: dbRes.rows.length };
+            const <span class="cstat-no" title="statement not covered" >reply = { status: '404', message: 'Entry Not Found' };</span>
+            if (<span class="cstat-no" title="statement not covered" >dbRes.rows === undefined) {</span>
+              res.<span class="cstat-no" title="statement not covered" >status(404).send(reply);</span>
+            } else {
+              const <span class="cstat-no" title="statement not covered" >goodReply = { status: '200', message: 'Profile Modified successfully', profile: dbRes.rows[0] };</span>
+              res.<span class="cstat-no" title="statement not covered" >status(200).send(goodReply);</span>
+            }
+          }
+        });
+      }
+    });
+};
+&nbsp;
+export {
+  createUser, logIn, getProfile, updateProfile,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 15 2018 02:40:58 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -4,7 +4,9 @@
 
 > My diary is a webapp where users can input there thoughts, anytime, anywhere
 
-[![Build Status](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge.svg?branch=api)](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge) [![Maintainability](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/maintainability)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/test_coverage)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/test_coverage)
+[![Build Status](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge.svg?branch=api)](https://travis-ci.com/phemmelliot/Andela-Developer-Challenge)
+[![Coverage Status](https://coveralls.io/repos/github/phemmelliot/Andela-Developer-Challenge/badge.svg?branch=bug-fix-travis-coveralls)](https://coveralls.io/github/phemmelliot/Andela-Developer-Challenge?branch=bug-fix-travis-coveralls)
+ [![Maintainability](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/maintainability)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5e357b8a94abb3859ec7/test_coverage)](https://codeclimate.com/github/phemmelliot/Andela-Developer-Challenge/test_coverage)
 ![Issues](https://img.shields.io/github/issues/phemmelliot/Andela-Developer-Challenge.svg)
 ![forks](https://img.shields.io/github/forks/phemmelliot/Andela-Developer-Challenge.svg)
 ![shields](https://img.shields.io/github/stars/phemmelliot/Andela-Developer-Challenge.svg)

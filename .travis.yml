@@ -1,15 +1,16 @@
 
 
 language: node_js
+
 node_js:
  - "node"
- services:
-  - postgresql
- before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - psql -c 'CREATE TABLE IF NOT EXISTS users(user_id SERIAL PRIMARY KEY, email text not null, password text not null, username text not null);' -U postgres
-  - psql -c 'CREATE TABLE IF NOT EXISTS entries(id SERIAL PRIMARY KEY, user_id SERIAL REFERENCES users(user_id),  title text not null, description text not null, time_created timestamp default now());' -U postgres
-
+services:
+ - postgresql
+before_script:
+ - psql -c 'create database travis_ci_test;' -U postgres
+after_success:
+ - npm run coverage
+ - npm run report-coverage
  # after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 
 #  env:
