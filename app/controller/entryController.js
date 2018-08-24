@@ -103,33 +103,38 @@ const createEntry = (req, res) => {
 };
 
 const updateEntry = (req, res) => {
-  if (!isEditable(req)) {
-    pool.query('UPDATE entries SET title = ($1), description = ($2) WHERE (id, user_id) = ($3, $4)',
-      [req.body.title, req.body.text, req.params.id, req.userData.userId], (error) => {
-        if (error) {
-          const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update entry' };
-          res.status(500).send(replyServer);
-        } else {
-          pool.query('SELECT * FROM entries WHERE user_id = ($1) ORDER BY id DESC', [req.userData.userId], (err, dbRes) => {
-            if (err) {
-              const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve entry' };
-              res.status(500).send(reply);
-            } else {
-              const db = { entries: dbRes.rows, size: dbRes.rows.length };
-              const reply = { status: '404', message: 'Entry Not Found' };
-              if (dbRes.rows === undefined) {
-                res.status(404).send(reply);
-              } else {
-                const goodReply = { status: '200', message: 'Entry Modified successfully', data: db };
-                res.status(200).send(goodReply);
-              }
-            }
-          });
-        }
-      });
+  if (isEmpty(req.body.text) || isEmpty(req.body.title)) {
+    badRequest.description = 'Body or title cannot be empty';
+    res.status(400).send(badRequest);
   } else {
-    const Reply = { status: '412', message: 'Entry can not be modified' };
-    res.status(412).send(Reply);
+    const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update entry' };
+    if (!isEditable(req)) {
+      pool.query('UPDATE entries SET title = ($1), description = ($2) WHERE (id, user_id) = ($3, $4)',
+        [req.body.title, req.body.text, req.params.id, req.userData.userId], (error) => {
+          if (error) {
+            res.status(500).send(replyServer);
+          } else {
+            pool.query('SELECT * FROM entries WHERE user_id = ($1) ORDER BY id DESC', [req.userData.userId], (err, dbRes) => {
+              if (err) {
+                const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve entry' };
+                res.status(500).send(reply);
+              } else {
+                const db = { entries: dbRes.rows, size: dbRes.rows.length };
+                const reply = { status: '404', message: 'Entry Not Found' };
+                if (dbRes.rows === undefined) {
+                  res.status(404).send(reply);
+                } else {
+                  const goodReply = { status: '200', message: 'Entry Modified successfully', data: db };
+                  res.status(200).send(goodReply);
+                }
+              }
+            });
+          }
+        });
+    } else {
+      const Reply = { status: '412', message: 'Entry can not be modified' };
+      res.status(412).send(Reply);
+    }
   }
 };
 
