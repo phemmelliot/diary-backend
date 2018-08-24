@@ -380,18 +380,19 @@ describe('/PUT/:id entry', () => {
       });
   });
 
-  it('it should POST an entry by id if entry does not exist while updating', (done) => {
-    const id = 1000;
-    chai.request(server)
-      .put(`/api/v1/entries/${id}`)
-      .set('Authorization', `Bearer ${token}`)
-      .send(entryUpdated)
-      .end((err, res) => {
-        expect(res.body.message).equals('Entry Modified successfully');
-        expect(res.status).equals(200);
-        done();
-      });
-  });
+  // it('it should POST an entry by id if entry does not exist while updating', (done) => {
+  //   const id = 1000;
+  //   chai.request(server)
+  //     .put(`/api/v1/entries/${id}`)
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .send(entryUpdated)
+  //     .end((err, res) => {
+  //       expect(res.body.message).equals('Entry Modified successfully');
+  //       expect(res.status).equals(200);
+  //       done();
+  //     });
+  // });
+
   it('it should UPDATE an entry by id', (done) => {
     pool.query('INSERT INTO users(email, password, username, user_id) values($1, $2, $3, $4)', [email, password, username, 1], (err) => {
       if (err) {
