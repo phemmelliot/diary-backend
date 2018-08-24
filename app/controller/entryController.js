@@ -120,16 +120,16 @@ const updateEntry = (req, res) => {
               if (dbRes.rows === undefined) {
                 res.status(404).send(reply);
               } else {
-                const goodReply = { status: '412', message: 'Entry Modified successfully', data: db };
-                res.status(412).send(goodReply);
+                const goodReply = { status: '200', message: 'Entry Modified successfully', data: db };
+                res.status(200).send(goodReply);
               }
             }
           });
         }
       });
   } else {
-    const Reply = { status: '200', message: 'Entry can not be modified' };
-    res.status(200).send(Reply);
+    const Reply = { status: '412', message: 'Entry can not be modified' };
+    res.status(412).send(Reply);
   }
 };
 
