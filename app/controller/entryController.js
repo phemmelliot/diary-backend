@@ -1,4 +1,5 @@
 import pool from '../db/pool';
+import { isEmpty } from './validate';
 
 const badRequest = { status: 400, message: 'Bad Request' };
 
@@ -71,7 +72,7 @@ const getEntries = (req, res) => {
 };
 
 const createEntry = (req, res) => {
-  if (req.body.text == null || req.body.title == null) {
+  if (isEmpty(req.body.text) || isEmpty(req.body.title)) {
     badRequest.description = 'Body or title cannot be empty';
     res.status(400).send(badRequest);
   } else {
@@ -127,8 +128,8 @@ const updateEntry = (req, res) => {
         }
       });
   } else {
-    const Reply = { status: '200', message: 'Entry can not be modified' };
-    res.status(200).send(Reply);
+    const Reply = { status: '412', message: 'Entry can not be modified' };
+    res.status(412).send(Reply);
   }
 };
 

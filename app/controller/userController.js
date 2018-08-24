@@ -12,6 +12,7 @@ const badRequest = { status: '400', message: 'Bad Request' };
 const loginQuery = (req, res, login) => {
   pool.query('SELECT * FROM users WHERE email = ($1)', [req.body.email], (error, dbRes) => {
     if (error) {
+      // console.log(error);
       const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not Log User in' };
       res.status(500).send(replyServer);
     } else {
@@ -31,7 +32,7 @@ const loginQuery = (req, res, login) => {
                 },
                 process.env.JWT_KEY,
                 {
-                  expiresIn: '1h',
+                  expiresIn: '4h',
                 },
               );
               if (login) {
@@ -46,7 +47,7 @@ const loginQuery = (req, res, login) => {
                 res.status(201).send(replyCreate);
               }
             } else {
-              reply.message = 'Unable to encrypt password';
+              // reply.message = 'Unable to encrypt password';
               res.status(401).send(reply);
             }
           });
@@ -57,7 +58,8 @@ const loginQuery = (req, res, login) => {
 
 const logIn = (req, res) => {
   if (isEmpty(req.body.email) || isEmpty(req.body.password)) {
-    badRequest.description = 'Email or password field cannot be empty';
+    // const badReq = { status: '400', message: 'Email or password field cannot be empty' };
+    // badRequest.description = 'Email or password field cannot be empty';
     res.status(400).send(badRequest);
   } else if (validateEmail(req.body.email) && validatePassword(req.body.password)) {
     loginQuery(req, res, true);
@@ -83,7 +85,7 @@ const createUser = (req, res) => {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
               res.status(500).json({
-                error: err,
+                message: 'could not encrypt password',
               });
             } else if (validateEmail(req.body.email) && validatePassword(req.body.password)) {
               pool.query('INSERT INTO users(email, password, username) values($1, $2, $3)',
@@ -138,7 +140,7 @@ const updateProfile = (req, res) => {
             res.status(500).send(reply);
           } else {
             // const db = { entries: dbRes.rows, size: dbRes.rows.length };
-            const reply = { status: '404', message: 'Entry Not Found' };
+            const reply = { status: '404', message: 'User Not Found' };
             if (dbRes.rows === undefined) {
               res.status(404).send(reply);
             } else {
