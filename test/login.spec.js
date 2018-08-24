@@ -124,6 +124,54 @@ describe('/POST entry', () => {
       });
   });
 
+  it('it should not POST an entry with empty text field', (done) => {
+    const entry = {
+      title: 'Today was Hectic',
+      text: '',
+    };
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not POST an entry with empty title field', (done) => {
+    const entry = {
+      text: 'Today was Hectic',
+      title: '',
+    };
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not POST an entry with empty title and text field', (done) => {
+    const entry = {
+      text: '',
+      title: '',
+    };
+    chai.request(server)
+      .post('/api/v1/entries')
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
   it('it should not POST an entry when there is no user', (done) => {
     const entry = {
       text: 'Today was Hectic',
@@ -237,6 +285,89 @@ describe('/PUT/:id entry', () => {
     text: 'Today was Hectic',
     title: 'This is the updated title',
   };
+  it('it should not UPDATE an entry without text field', (done) => {
+    const entry = {
+      title: 'Today was Hectic',
+    };
+    const id = 1000;
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not UPDATE an entry without title field', (done) => {
+    const entry = {
+      text: 'Today was Hectic',
+    };
+    const id = 1000;
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not UPDATE an entry with empty text field', (done) => {
+    const entry = {
+      title: 'Today was Hectic',
+      text: '',
+    };
+    const id = 1000;
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not UPDATE an entry with empty title field', (done) => {
+    const entry = {
+      text: 'Today was Hectic',
+      title: '',
+    };
+    const id = 1000;
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
+  it('it should not UPDATE an entry with empty title and text field', (done) => {
+    const entry = {
+      text: '',
+      title: '',
+    };
+    const id = 1000;
+    chai.request(server)
+      .put(`/api/v1/entries/${id}`)
+      .send(entry)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals(400);
+        done();
+      });
+  });
+
   it('it should not UPDATE an entry by id if there is no auth token', (done) => {
     const id = 1000;
     chai.request(server)
@@ -377,6 +508,55 @@ describe('/POST new user', () => {
         done();
       });
   });
+
+  it('it should not CREATE a user with empty email or password field only', (done) => {
+    const user = {
+      username: 'phemmelliot',
+      password: '',
+      email: '',
+    };
+    chai.request(server)
+      .post('/api/v1/user/signup')
+      .send(user)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals('400');
+        done();
+      });
+  });
+
+  it('it should not CREATE a user with empty email or username field only', (done) => {
+    const user = {
+      password: 'password',
+      username: '',
+      email: '',
+    };
+    chai.request(server)
+      .post('/api/v1/user/signup')
+      .send(user)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals('400');
+        done();
+      });
+  });
+
+  it('it should not CREATE a user with empty username or password field only', (done) => {
+    const user = {
+      email: 'testing@gmail.com',
+      username: '',
+      password: '',
+    };
+    chai.request(server)
+      .post('/api/v1/user/signup')
+      .send(user)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals('400');
+        done();
+      });
+  });
+
   it('it should not POST a user, if user already exists', (done) => {
     const user = {
       email: 'test@gmail.com',
@@ -497,6 +677,21 @@ describe('/POST Log user in', () => {
     const user = {
       email: 'test@gmail.com',
       password: '         ',
+    };
+    chai.request(server)
+      .post('/api/v1/user/login')
+      .send(user)
+      .end((err, res) => {
+        expect(res.body.message).equals('Bad Request');
+        expect(res.body.status).equals('400');
+        done();
+      });
+  });
+
+  it('it should not Log a user in, if email is empty', (done) => {
+    const user = {
+      email: '',
+      password: 'password',
     };
     chai.request(server)
       .post('/api/v1/user/login')
