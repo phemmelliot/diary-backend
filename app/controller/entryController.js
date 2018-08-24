@@ -1,4 +1,5 @@
 import pool from '../db/pool';
+import { isEmpty } from './validate';
 
 const badRequest = { status: 400, message: 'Bad Request' };
 
@@ -71,7 +72,7 @@ const getEntries = (req, res) => {
 };
 
 const createEntry = (req, res) => {
-  if (req.body.text == null || req.body.title == null) {
+  if (isEmpty(req.body.text) || isEmpty(req.body.title)) {
     badRequest.description = 'Body or title cannot be empty';
     res.status(400).send(badRequest);
   } else {
@@ -119,8 +120,8 @@ const updateEntry = (req, res) => {
               if (dbRes.rows === undefined) {
                 res.status(404).send(reply);
               } else {
-                const goodReply = { status: '200', message: 'Entry Modified successfully', data: db };
-                res.status(200).send(goodReply);
+                const goodReply = { status: '412', message: 'Entry Modified successfully', data: db };
+                res.status(412).send(goodReply);
               }
             }
           });

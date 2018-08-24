@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import router from './app/routes';
 import addTables from './app/db/db';
 
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 // app.use('/v1', routes)(app, pool);
 router(app);
 // require('./app/routes')(app, array);
