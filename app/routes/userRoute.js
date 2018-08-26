@@ -1,5 +1,5 @@
 import {
-  createUser, logIn, getProfile, updateProfile,
+  createUser, logIn, getProfile, updateProfile, updateName,
 } from '../controller/userController';
 import checkAuth from '../middleware/checkAuth';
 
@@ -11,4 +11,6 @@ export default function route(app) {
   app.get('/api/v1/user/profile', checkAuth, getProfile);
 
   app.put('/api/v1/user/profile', checkAuth, updateProfile);
+
+  app.put('/api/v1/user/updatename', checkAuth, updateName);
 }
