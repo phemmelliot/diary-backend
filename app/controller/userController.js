@@ -128,7 +128,7 @@ const getProfile = (req, res) => {
 };
 
 const updateProfile = (req, res) => {
-  if (isEmpty(req.body.email) || isEmpty(req.body.username)) {
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || !validateEmail(req.body.email)) {
     badRequest.description = 'Email or username field cannot be empty';
     res.status(400).send(badRequest);
   } else {
@@ -171,8 +171,8 @@ const updateProfile = (req, res) => {
 };
 
 const updateName = (res, req) => {
-  if (isEmpty(req.body.email) || isEmpty(req.body.username)) {
-    badRequest.description = 'Email or username field cannot be empty';
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || !validateEmail(req.body.email)) {
+    badRequest.description = 'Email or username field cannot be empty or invalid email';
     res.status(400).send(badRequest);
   } else {
     pool.query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',
