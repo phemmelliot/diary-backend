@@ -170,7 +170,7 @@ const updateProfile = (req, res) => {
   }
 };
 
-const updateName = (res, req) => {
+const updateName = (req, res) => {
   if (isEmpty(req.body.email) || isEmpty(req.body.username) || !validateEmail(req.body.email)) {
     badRequest.description = 'Email or username field cannot be empty or invalid email';
     res.status(400).send(badRequest);
