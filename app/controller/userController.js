@@ -128,67 +128,77 @@ const getProfile = (req, res) => {
 };
 
 const updateProfile = (req, res) => {
-  pool.query('SELECT * FROM users WHERE email = ($1)', [req.body.email], (checkErr, response) => {
-    if (checkErr) {
-      const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };
-      res.status(500).send(replyServer);
-    } else {
-      const replyBad = { status: '409', message: 'User Already Exists' };
-      if (response.rows[0] === undefined) {
-        pool.query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',
-          [req.body.email, req.body.username, req.userData.userId], (error) => {
-            if (error) {
-              const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update profile' };
-              res.status(500).send(replyServer);
-            } else {
-              pool.query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], (err, dbRes) => {
-                if (err) {
-                  const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve updated profile' };
-                  res.status(500).send(reply);
-                } else {
-                  // const db = { entries: dbRes.rows, size: dbRes.rows.length };
-                  const reply = { status: '404', message: 'User Not Found' };
-                  if (dbRes.rows === undefined) {
-                    res.status(404).send(reply);
-                  } else {
-                    const goodReply = { status: '200', message: 'Profile Modified successfully', profile: dbRes.rows[0] };
-                    res.status(200).send(goodReply);
-                  }
-                }
-              });
-            }
-          });
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || !validateEmail(req.body.email)) {
+    badRequest.description = 'Email or username field cannot be empty';
+    res.status(400).send(badRequest);
+  } else {
+    pool.query('SELECT * FROM users WHERE email = ($1)', [req.body.email], (checkErr, response) => {
+      if (checkErr) {
+        const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not create user' };
+        res.status(500).send(replyServer);
       } else {
-        res.status(409).send(replyBad);
+        const replyBad = { status: '409', message: 'User Already Exists' };
+        if (response.rows[0] === undefined) {
+          pool.query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',
+            [req.body.email, req.body.username, req.userData.userId], (error) => {
+              if (error) {
+                const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update profile' };
+                res.status(500).send(replyServer);
+              } else {
+                pool.query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], (err, dbRes) => {
+                  if (err) {
+                    const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve updated profile' };
+                    res.status(500).send(reply);
+                  } else {
+                  // const db = { entries: dbRes.rows, size: dbRes.rows.length };
+                    const reply = { status: '404', message: 'User Not Found' };
+                    if (dbRes.rows === undefined) {
+                      res.status(404).send(reply);
+                    } else {
+                      const goodReply = { status: '200', message: 'Profile Modified successfully', profile: dbRes.rows[0] };
+                      res.status(200).send(goodReply);
+                    }
+                  }
+                });
+              }
+            });
+        } else {
+          res.status(409).send(replyBad);
+        }
       }
-    }
-  });
+    });
+  }
 };
 
 const updateName = (res, req) => {
-  pool.query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',
-    [req.body.email, req.body.username, req.userData.userId], (error) => {
-      if (error) {
-        const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update profile' };
-        res.status(500).send(replyServer);
-      } else {
-        pool.query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], (err, dbRes) => {
-          if (err) {
-            const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve updated profile' };
-            res.status(500).send(reply);
-          } else {
-            // const db = { entries: dbRes.rows, size: dbRes.rows.length };
-            const reply = { status: '404', message: 'User Not Found' };
-            if (dbRes.rows === undefined) {
-              res.status(404).send(reply);
+  if (isEmpty(req.body.email) || isEmpty(req.body.username) || !validateEmail(req.body.email)) {
+    badRequest.description = 'Email or username field cannot be empty or invalid email';
+    res.status(400).send(badRequest);
+  } else {
+    pool.query('UPDATE users SET email = ($1), username = ($2) WHERE user_id = $3',
+      [req.body.email, req.body.username, req.userData.userId], (error) => {
+        if (error) {
+          const replyServer = { status: '500', message: 'Internal Server Error', description: 'Could not update profile' };
+          res.status(500).send(replyServer);
+        } else {
+          pool.query('SELECT email, username FROM users WHERE user_id = ($1)', [req.userData.userId], (err, dbRes) => {
+            if (err) {
+              const reply = { status: '500', message: 'Internal Server Error', description: 'Could not retrieve updated profile' };
+              res.status(500).send(reply);
             } else {
-              const goodReply = { status: '200', message: 'Profile Modified successfully', profile: dbRes.rows[0] };
-              res.status(200).send(goodReply);
+            // const db = { entries: dbRes.rows, size: dbRes.rows.length };
+              const reply = { status: '404', message: 'User Not Found' };
+              if (dbRes.rows === undefined) {
+                res.status(404).send(reply);
+              } else {
+                const goodReply = { status: '200', message: 'Profile Modified successfully', profile: dbRes.rows[0] };
+                res.status(200).send(goodReply);
+              }
             }
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+  }
 };
 
 export {
