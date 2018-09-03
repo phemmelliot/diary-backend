@@ -1,0 +1,540 @@
+swagger: "2.0"
+info:
+  description: "Personal Diary is an online diary where you can pour down your thoughts anytime, anywhere"
+  version: "1.0.0"
+  title: "Personal-Diary"
+  termsOfService: ""
+  contact:
+    email: "adegokefemi17@gmail.com"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+host: "phemmelliotdiary.herokuapp.com"
+basePath: "/api/v1"
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+tags:
+- name: "Authentication"
+  description: "Endpoints for authenticating users"
+- name: "Entries"
+  description: "Entries endpoints"
+- name: "User"
+  description: "Other User operation endpoint"
+
+schemes:
+- "https"
+
+paths:
+  /user/signup:
+    post:
+      tags:
+      - "Authentication"
+      summary: "For creating a new user"
+      description: "This endpoint gives the user the ability to create a new account"
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "email"
+        description: "Email address of the user"
+        required: true
+        type: string
+      - in: "formData"
+        name: "password"
+        description: "This is the Password, it must be be at least 5 letters"
+        required: true
+        type: string
+      responses:
+        201:
+          description: "User Created Successfully"
+          examples:
+            application/json:
+              status: 201
+              message: User Created Successfully
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkZWdva2VmZW1pMTdAZ21haWwuY29tIiwidXNlcklkIjoxMDUsImlhdCI6MTUzNTk0NDQwMCwiZXhwIjoxNTM1OTU4ODAwfQ.15iefQHhudunYzOsWVEsC5VbjVYi-e5aJuh-m7kmHn0
+              user_id: 3
+
+        409:
+          description: "User Already Exists"
+          examples:
+            application/json:
+              error:
+                status: "409"
+                message:
+                  "User Already Exists"
+        400:
+          description: "Bad request"
+          examples:
+            application/json:
+              error:
+                status: "400"
+                message:
+                  "Bad Request"
+                description: Email, password or username field cannot be empty
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+  /user/login:
+    post:
+      tags:
+      - "Authentication"
+      summary: "sign in a user after which a json containing token and other information will be returned"
+      description: "This is for logging in users"
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "email"
+        description: "Email address of the user"
+        required: true
+        type: string
+      - in: "formData"
+        name: "password"
+        description: "This is the Password, it must be be at least 5 letters"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "User Logged In Successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: User Logged In Successfully
+              token: eyERTciergyzIBr1NiwerIdssdeyR5csdfs.LCJleHAiOjE1MjI0MDM3MTR9.piPT-ut9xAg8wYUvC-PgrER45iyyuERR
+              user_id: 3
+        401:
+          description: "User does not exist"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "User does not exist"
+          400:
+            description: "Bad request"
+            examples:
+              application/json:
+                error:
+                  status: "400"
+                  message:
+                    "Bad Request"
+                  description: Email, password or username field cannot be empty
+          500:
+            description: "Internal Server Error"
+            examples:
+              application/json:
+                error:
+                  status: "500"
+                  message: Internal Server Error
+
+  /user/profile:
+    get:
+      tags:
+      - "User"
+      summary: "Users Profile"
+      description: "This endpoint returns the user's profile"
+      produces:
+      - "application/json"
+      security:
+      -  Bearer: []
+      responses:
+        200:
+          description: "User Returned Successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: "User Returned Successfully"
+              user:
+                email: jane.doe@gmail.com
+                username: janeDoe
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+    put:
+      tags:
+      - "User"
+      summary: "This is for updating user profile"
+      description: "This endpoint updates the user's profile"
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "email"
+        description: "Users updated email"
+        required: false
+        type: string
+      - in: "formData"
+        name: "username"
+        description: "Users updated username"
+        required: false
+        type: string
+      security:
+      -  Bearer: []
+      responses:
+        200:
+          description: "Profile Modified Successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: "Profile Modified successfully"
+              profile:
+                email: jane.doe@gmail.com
+                username: janeDoe
+        400:
+          description: "Bad request"
+          examples:
+            application/json:
+              error:
+                status: "400"
+                message:
+                  "Bad Request"
+        404:
+          description: "User Not Found"
+          examples:
+            application/json:
+              error:
+                status: "404"
+                message:
+                  "User Not Found"
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+  /entries:
+    get:
+      tags:
+      - "Entries"
+      summary: "Retrieves all user entries"
+      description: "This endpoint returns a list of of user entries"
+      produces:
+      - "application/json"
+      security:
+      -  Bearer: []
+      responses:
+        200:
+          description: "Entries returned successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: Entries returned successfully
+              data:
+                entries:
+                  - id: 10
+                    user_id: 3
+                    title: Today is going to be awesome
+                    desciption: The way I woke up today I know for sure that today will be good
+                    created_on: '2017-08-02T10:33:49.297Z'
+                  - id: 11
+                    user_id: 3
+                    title: Today is going to be awesome
+                    desciption: The way I woke up today I know for sure that today will be good
+                    created_on: '2017-08-02T10:33:49.297Z'
+                size:
+                  2
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        404:
+          description: "There is no entries for a user yet"
+          examples:
+            application/json:
+              error:
+                status: "404"
+                message:
+                  "There is no entries yet"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+    post:
+      tags:
+      - "Entries"
+      summary: "Creates a new user entry"
+      description: "This endpoint adds a new user entry and returns the newly added entry"
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "title"
+        description: "The title of the entry"
+        required: true
+        type: string
+      - in: "formData"
+        name: "text"
+        description: "The description text of the entry"
+        required: true
+        type: string
+      security:
+      -  Bearer: []
+      responses:
+        201:
+          description: "Entry Created Successfully"
+          examples:
+            application/json:
+              status: "201"
+              message: "Entry Created successfully"
+              data:
+                entries:
+                  id: 14
+                  user_id: 3
+                  title: 'Today nah today'
+                  description: 'It was an eventful summer. A week characterized by the nuances of IO conference...'
+                  created_on: '2017-08-02T10:33:49.297Z'
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+        400:
+          description: "Bad request"
+          examples:
+            application/json:
+              error:
+                status: "400"
+                message:
+                  "Bad Request"
+  /entries/{id}:
+    get:
+      tags:
+      - "Entries"
+      summary: "Get entry by id"
+      description: "This endpoint retrieves a user entry by its id"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+      security:
+      -  Bearer: []
+      responses:
+        200:
+          description: "Entry returned successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: "Entry returned successfully"
+              entry:
+                id: 14
+                user_id: 3
+                title: 'Today nah today'
+                description: 'It was an eventful summer. A week characterized by the nuances of IO conference...'
+                created_on: '2017-08-02T10:33:49.297Z'
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+        404:
+          description: "Entry not found"
+          examples:
+            application/json:
+              error:
+                status: "404"
+                message:
+                  "Entry Not Found"
+    put:
+      tags:
+      - "Entries"
+      summary: "Modify entry by id"
+      description: "This endpoint modifies a user entry by id as long as it is modified same day it was created"
+      consumes:
+      - "application/json"
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+      - in: "formData"
+        name: "title"
+        description: "The title of the entry"
+        required: false
+        type: string
+      - in: "formData"
+        name: "text"
+        description: "The description text of the entry"
+        required: false
+        type: string
+      security:
+      -  Bearer: []
+      responses:
+        200:
+          description: "Entry Modified successfully"
+          examples:
+            application/json:
+              status: "200"
+              message: "Entry Modified successfully"
+              data:
+                entries:
+                  - id: 10
+                    user_id: 3
+                    title: Today is going to be awesome
+                    desciption: The way I woke up today I know for sure that today will be good
+                    created_on: '2017-08-02T10:33:49.297Z'
+                  - id: 11
+                    user_id: 3
+                    title: Today is going to be awesome
+                    desciption: The way I woke up today I know for sure that today will be good
+                    created_on: '2017-08-02T10:33:49.297Z'
+                size:
+                  2
+        400:
+          description: "Bad request"
+          examples:
+            application/json:
+              error:
+                status: "400"
+                message:
+                  "Bad Request"
+
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+        404:
+          description: "Entry not found"
+          examples:
+            application/json:
+              error:
+                status: "404"
+                message:
+                  "Entry Not Found"
+        412:
+          description: "Cannot update an entry after the day it was created"
+          examples:
+            application/json:
+              error:
+                status: "412"
+                message: "Entry can not be modified"
+    delete:
+      tags:
+      - "Entries"
+      summary: "Delete entry by id"
+      description: "This endpoint deletes an entry by id"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+      security:
+      -  Bearer: []
+      responses:
+        204:
+          description: "Successfully deleted entry"
+          examples:
+            application/json:
+              status: "200"
+              message:
+                "Entry Deleted successfully"
+        401:
+          description: "Authorization failed"
+          examples:
+            application/json:
+              error:
+                status: "401"
+                message:
+                  "Auth failed"
+        500:
+          description: "Internal Server Error"
+          examples:
+            application/json:
+              error:
+                status: "500"
+                message: Internal Server Error
+        404:
+          description: "Entry not found"
+          examples:
+            application/json:
+              error:
+                status: "404"
+                message:
+                  "Entry does not exist"

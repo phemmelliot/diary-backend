@@ -2,8 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+import path from 'path';
 import router from './app/routes';
 import addTables from './app/db/db';
+
+const swaggerDocument = YAML.load(path.join(process.cwd(), './swagger/swagger.yaml'));
 
 addTables();
 dotenv.config();
@@ -15,9 +20,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-// app.use('/v1', routes)(app, pool);
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 router(app);
-// require('./app/routes')(app, array);
 
 // listen for requests
 const server = app.listen(process.env.PORT || 5000, () => {
